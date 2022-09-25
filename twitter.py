@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# coding=utf-8
+
 import requests
 import json
 import asyncio, aiohttp
@@ -5,8 +8,6 @@ import asyncio, aiohttp
 configfile = {}
 with open('./config/config.json', 'r') as f:
     configfile = json.load(f)
-# To set your enviornment variables in your terminal run the following line:
-# export 'BEARER_TOKEN'='<your_bearer_token>'
 bearer_token = f"{configfile['twitter_bearer_token']}"
 
 def bearer_oauth(r):
@@ -88,8 +89,11 @@ def get_stream(set):
             tweettext = json_response['data']['text']
             tweetid = json_response['data']['id']
             tweetdeets = connect_to_endpoint(url)
-            #print(json.dumps(tweetdeets, indent=4))
             steamurl = tweetdeets['data'][0]['entities']['urls'][0]['expanded_url']
+            if not configfile['color']:
+                color = '0x992d22'
+            else:
+                color = configfile['color']
             tweeturl = f"https://twitter.com/rusthackreport/status/{tweetid}"
             if configfile['sendembed']:
                 embed = {
@@ -97,7 +101,7 @@ def get_stream(set):
                     "embeds": [
                         {
                         "title": "Gameban report",
-                        "color": f"{int(configfile['color'], base=16)}",
+                        "color": f"{int(color, base=16)}",
                         "fields": [
                         {
                             "name": "Tweet",
