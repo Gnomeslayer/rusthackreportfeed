@@ -10,7 +10,7 @@ Put the URL in the config where 'channel' is.
 If you want the embed version (in my opinion neater) set embed to true.
 If you just want the raw tweet message, set embed to false.
 
-In command line, navigate to the folder you've saved this into,
+In command line, navigate to the folder you've saved this into,<br>
 type: pip install -r requirements.txt<br>
 type: python twitter.py
 
